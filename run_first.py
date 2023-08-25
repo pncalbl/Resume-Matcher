@@ -4,6 +4,7 @@ from scripts.ResumeProcessor import ResumeProcessor
 from scripts.JobDescriptionProcessor import JobDescriptionProcessor
 import logging
 import os
+
 logging.basicConfig(filename='app.log', filemode='w',
                     level=logging.DEBUG,
                     format='%(name)s - %(levelname)s - %(message)s')
@@ -11,23 +12,24 @@ logging.basicConfig(filename='app.log', filemode='w',
 PROCESSED_RESUMES_PATH = "Data/Processed/Resumes"
 PROCESSED_JOB_DESCRIPTIONS_PATH = "Data/Processed/JobDescription"
 
+
 def read_json(filename):
     with open(filename) as f:
         data = json.load(f)
     return data
 
-def remove_old_files(files_path):
 
+def remove_old_files(files_path):
     for filename in os.listdir(files_path):
         try:
             file_path = os.path.join(files_path, filename)
 
             if os.path.isfile(file_path):
                 os.remove(file_path)
-        except Exception as e:  
+        except Exception as e:
             logging.error(f"Error deleting {file_path}:\n{e}")
 
-    logging.info("Deleted old files from "+files_path)
+    logging.info("Deleted old files from " + files_path)
 
 
 logging.info('Started to read from Data/Resumes')
